@@ -3,426 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Guerrero Resiste · Etnocidio en la Montaña Baja · Denuncia internacional</title>
-    <meta name="description" content="Más de 800 familias desplazadas por ataques con drones en Guerrero, México. Testimonios, datos forenses y acciones urgentes. El Estado mexicano es responsable.">
-    <meta name="theme-color" content="#8B0000">
+    <title>Guerrero Resiste · Etnocidio en la Montaña Baja · La palabra de los pueblos</title>
+    <meta name="description" content="No venimos a pedir limosna. Exigimos justicia. Más de 800 familias desplazadas por drones en Guerrero. El Estado es cómplice. DADPI. Autonomía. Tierra.">
+    <meta name="theme-color" content="#1A1A2E">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #F5F3EF;
+            background: #FAF6F0;
             color: #1A1A2E;
-            line-height: 1.6;
+            line-height: 1.7;
             scroll-behavior: smooth;
         }
+        
+        /* ============ AUTO-CRÍTICA / POSICIONAMIENTO ============ */
+        .auto-critica {
+            background: #1A1A2E;
+            color: #ECF0F1;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 4px solid #E67E22;
+            border-bottom: 4px solid #E67E22;
+            font-size: 0.95rem;
+        }
+        .auto-critica strong {
+            color: #E67E22;
+        }
+        
         .lang-sticky {
             position: fixed; top: 20px; right: 20px; z-index: 1000;
             display: flex; gap: 10px;
-            background: rgba(26, 26, 46, 0.9); backdrop-filter: blur(10px);
-            padding: 10px 18px; border-radius: 50px;
+            background: rgba(26, 26, 46, 0.95); backdrop-filter: blur(10px);
+            padding: 8px 16px; border-radius: 50px;
             border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
         .lang-btn {
-            background: transparent; border: none; color: #ECF0F1; font-size: 14px;
-            font-weight: 600; cursor: pointer; padding: 6px 12px; border-radius: 30px;
-            transition: all 0.2s ease; font-family: 'Inter', monospace;
+            background: transparent; border: none; color: #ECF0F1; font-size: 13px;
+            font-weight: 600; cursor: pointer; padding: 5px 10px; border-radius: 30px;
+            transition: all 0.2s;
         }
         .lang-btn.active { background: #8B0000; color: white; }
-        .lang-btn:hover:not(.active) { background: rgba(139,0,0,0.5); }
         
         .hero {
             min-height: 100vh;
             background: linear-gradient(135deg, #0F0F1A 0%, #2D2D44 50%, #1A1A2E 100%);
             position: relative; display: flex; align-items: center; justify-content: center;
-            text-align: center; color: white; overflow: hidden;
+            text-align: center; color: white;
         }
         .hero::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.1"><path fill="none" stroke="%238B0000" stroke-width="1.5" d="M0 400 L800 400 M400 0 L400 800 M200 200 L600 600 M600 200 L200 600"/><circle cx="400" cy="400" r="150" stroke="%238B0000" stroke-width="1" fill="none"/><circle cx="400" cy="400" r="80" stroke="%238B0000" stroke-width="2" fill="none"/></svg>');
-            background-repeat: repeat; background-size: 60px; opacity: 0.08; pointer-events: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" opacity="0.08"><path fill="none" stroke="%238B0000" stroke-width="1.5" d="M0 400 L800 400 M400 0 L400 800 M200 200 L600 600 M600 200 L200 600"/><circle cx="400" cy="400" r="150" stroke="%238B0000" stroke-width="1" fill="none"/></svg>');
+            background-repeat: repeat; background-size: 60px; pointer-events: none;
         }
         .hero-content { max-width: 1000px; padding: 0 20px; z-index: 2; }
-        .hero-badge { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 4px; color: #E74C3C; margin-bottom: 20px; }
+        .hero-badge { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 4px; color: #E74C3C; margin-bottom: 20px; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.2; margin-bottom: 24px; }
-        .hero-timestamp { font-size: 1.2rem; color: #E74C3C; font-weight: 600; margin-bottom: 20px; }
-        .hero-quote { font-style: italic; font-size: 1.2rem; max-width: 800px; margin: 0 auto 40px; color: #CCC; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px; border-left: 4px solid #8B0000; }
-        .cta-group { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .btn-primary { background: #8B0000; color: white; padding: 16px 36px; border-radius: 40px; text-decoration: none; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; }
-        .btn-primary:hover { background: #B22222; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(139,0,0,0.4); }
-        .btn-secondary { background: #1A1A2E; border: 2px solid #8B0000; color: white; padding: 14px 34px; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.3s; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-secondary:hover { background: #8B0000; border-color: #E74C3C; transform: translateY(-2px); }
+        .hero-timestamp { font-size: 1rem; color: #E74C3C; font-weight: 500; margin-bottom: 20px; font-family: monospace; }
+        .hero-quote { font-style: italic; font-size: 1.1rem; max-width: 800px; margin: 0 auto 40px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; border-left: 4px solid #8B0000; }
+        .btn-primary { background: #8B0000; color: white; padding: 14px 32px; border-radius: 40px; text-decoration: none; font-weight: 700; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+        .btn-primary:hover { background: #B22222; transform: translateY(-2px); }
+        .btn-secondary { background: transparent; border: 2px solid #8B0000; color: white; padding: 12px 30px; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; transition: 0.3s; cursor: pointer; }
+        .btn-secondary:hover { background: #8B0000; }
         
-        .section { padding: 80px 24px; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
-        .section-sub { text-align: center; max-width: 800px; margin: 0 auto 50px; color: #555; font-size: 1.1rem; }
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; margin: 40px 0; }
-        .testimonial-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s; border-left: 5px solid #8B0000; }
+        .section { padding: 80px 24px; max-width: 1300px; margin: 0 auto; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
+        .section-sub { text-align: center; max-width: 800px; margin: 0 auto 50px; color: #555; font-size: 1.05rem; }
+        
+        .img-container {
+            max-width: 1200px; margin: 40px auto; padding: 0 20px;
+        }
+        .img-container img {
+            width: 100%; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+        }
+        .img-caption {
+            font-size: 0.7rem; color: #777; margin-top: 8px; text-align: center;
+            font-family: monospace;
+        }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin: 50px 0; }
+        .stat-card { background: white; padding: 30px 20px; text-align: center; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 4px solid #8B0000; }
+        .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 3rem; font-weight: 800; color: #8B0000; }
+        
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin: 40px 0; }
+        .testimonial-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-left: 5px solid #8B0000; transition: transform 0.2s; }
         .testimonial-card:hover { transform: translateY(-5px); }
-        .testimonial-text { font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
-        .testimonial-meta { font-size: 0.85rem; color: #8B0000; font-weight: 600; letter-spacing: 0.5px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 50px 0; }
-        .stat-card { background: white; padding: 35px 20px; text-align: center; border-radius: 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); transition: all 0.2s; }
-        .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 800; color: #8B0000; }
-        .map-container { height: 500px; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 20px 35px rgba(0,0,0,0.15); background: #ddd; z-index: 1; position: relative; }
-        .analysis-block { background: #2C3E50; border-radius: 32px; margin: 60px auto; overflow: hidden; }
-        .analysis-grid { display: flex; flex-wrap: wrap; gap: 0; }
-        .analysis-card { flex: 1; min-width: 280px; padding: 40px 30px; color: white; background: #1A252F; transition: all 0.3s; }
+        .testimonial-text { font-size: 1rem; line-height: 1.7; font-style: italic; margin-bottom: 15px; }
+        .testimonial-meta { font-size: 0.8rem; color: #8B0000; font-weight: 600; }
+        
+        .analysis-block { background: #1A1A2E; border-radius: 28px; margin: 60px auto; overflow: hidden; }
+        .analysis-grid { display: flex; flex-wrap: wrap; }
+        .analysis-card { flex: 1; min-width: 260px; padding: 40px 30px; color: white; background: #1A252F; }
         .analysis-card:nth-child(2) { background: #1E2A36; }
-        .analysis-card h3 { font-size: 1.8rem; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
-        .analysis-card p { line-height: 1.7; color: #DDD; }
-        .btn-sticky-action { position: fixed; bottom: 20px; left: 20px; z-index: 999; background: #E74C3C; color: white; padding: 12px 24px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; border: none; transition: all 0.2s; }
-        .btn-sticky-action:hover { background: #c0392b; transform: scale(1.02); }
+        .analysis-card:nth-child(3) { background: #22303E; }
+        .analysis-card h3 { font-size: 1.6rem; margin-bottom: 20px; font-family: 'Playfair Display', serif; }
+        
+        .map-container { height: 450px; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        #map { height: 100%; width: 100%; }
+        
+        .demands-section {
+            background: #1A1A2E;
+            padding: 60px 30px;
+            border-radius: 48px;
+            margin: 60px auto;
+        }
+        .demands-section h2 {
+            color: white;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .demands-list { max-width: 900px; margin: 0 auto; }
+        .demand-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border-left: 5px solid #8B0000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            color: #1A1A2E;
+        }
+        .demand-item strong { color: #8B0000; }
+        
+        .btn-sticky-action { position: fixed; bottom: 20px; left: 20px; z-index: 999; background: #E74C3C; color: white; padding: 12px 24px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; border: none; font-size: 0.9rem; }
+        .btn-sticky-action:hover { background: #c0392b; }
+        
         footer { background: #0F0F1A; color: #aaa; text-align: center; padding: 60px 24px; font-size: 0.9rem; }
-        .img-caption { font-size: 0.7rem; color: #777; margin-top: 8px; text-align: center; font-family: monospace; }
-        @media (max-width: 768px) { .section { padding: 60px 16px; } .lang-sticky { top: 10px; right: 10px; padding: 6px 12px; } .lang-btn { font-size: 11px; padding: 4px 8px; } .hero-quote { font-size: 1rem; } }
+        .footer-quote { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-style: italic; margin: 30px 0; color: #E67E22; }
+        
+        @media (max-width: 768px) { .section { padding: 50px 16px; } .hero h1 { font-size: 2rem; } }
     </style>
 </head>
 <body>
 
-<div class="lang-sticky" id="langSwitcher">
-    <button class="lang-btn" data-lang="es">🇲🇽 ES</button>
+<div class="lang-sticky">
+    <button class="lang-btn active" data-lang="es">🇲🇽 ES</button>
     <button class="lang-btn" data-lang="en">🇺🇸 EN</button>
     <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
 </div>
 
 <button class="btn-sticky-action" id="emergencyBtn">⚠️ ACTUAR AHORA</button>
 
+<!-- AUTO-CRÍTICA Y POSICIONAMIENTO -->
+<div class="auto-critica">
+    <p><strong>📢 POSICIONAMIENTO DE ESTE SITIO:</strong> No hablamos <em>por</em> las comunidades. Amplificamos sus palabras. Este proyecto nace desde la universidad pública, con todos sus límites: no sustituye la organización territorial, no garantiza resultados, no pide intervención extranjera. <strong>Las demandas son AL ESTADO MEXICANO.</strong> No venimos a salvar a nadie. Venimos a que el mundo escuche a quienes resisten.</p>
+</div>
+
 <!-- HERO -->
-<section class="hero" id="hero">
+<section class="hero">
     <div class="hero-content">
-        <div class="hero-badge" data-i18n="hero_badge">CRIMEN DE ESTADO · ETNOCIDIO · GUERRERO</div>
-        <h1 data-i18n="hero_title">Ellos huyen. El gobierno observa.<br>Los drones matan.</h1>
-        <div class="hero-timestamp" data-i18n="hero_timestamp">🕊️ 3:16 PM · 11 de mayo de 2026 · Alcozacán, Guerrero</div>
-        <div class="hero-quote" data-i18n="hero_quote">“Escuchen, por favor, y difúndanlo. Que esta noticia llegue a todo el mundo. Aquí no hay ningún apoyo, aquí no ha llegado ningún gobierno. Son las 3:16 de la tarde, toda la comunidad está huyendo.” — Testigo directo, Alcozacán</div>
-        <div class="cta-group">
-            <a href="#testimonios" class="btn-primary" data-i18n="cta_testimonios">📖 Escuchar sus voces</a>
-            <a href="#acciones" class="btn-secondary" data-i18n="cta_actuar">✊ ACTUAR AHORA</a>
+        <div class="hero-badge" data-i18n="hero_badge">ETNOCIDIO EN CURSO · GUERRERO RESISTE</div>
+        <h1 data-i18n="hero_title">El Estado observa.<br>Los drones matan.<br>Nosotres sobrevivimos.</h1>
+        <div class="hero-timestamp" data-i18n="hero_timestamp">⏱️ 3:16 PM · 11 de mayo de 2026 · Alcozacán, Guerrero</div>
+        <div class="hero-quote" data-i18n="hero_quote">“Son las 3:16 de la tarde, estamos aquí en Alcozacán, toda la comunidad está huyendo. Aquí no hay ningún apoyo, no ha llegado ningún gobierno.” — Testigo directo</div>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="#testimonios" class="btn-primary" data-i18n="cta1">📢 Escuchar sus voces</a>
+            <a href="#acciones" class="btn-secondary" data-i18n="cta2">✊ Presionar al Estado</a>
         </div>
     </div>
 </section>
 
-<!-- CONTEXTO -->
-<section class="section" id="contexto">
-    <h2 class="section-title" data-i18n="context_title">Montaña Baja: El territorio donde el oro vale más que una familia</h2>
-    <p class="section-sub" data-i18n="context_sub">La violencia no es caos. Es una estrategia de limpieza social para abrir paso al saqueo minero, con la complicidad del Estado.</p>
+<!-- IMAGEN 1: Noche de terror -->
+<div class="img-container">
+    <img src="https://github.com/montanaviva/guerrero-resiste/blob/main/La_ra%C3%ADz_del_despojo_miner%C3%ADa_y_territorio.png?raw=true" alt="Noche de terror en la Montaña Baja de Guerrero" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/1A1A2E/8B0000?text=Imagen+no+encontrada';">
+    <div class="img-caption">⬆️ La noche del 10 de mayo de 2026 en la Montaña Baja de Guerrero. Familias enteras huyeron al monte mientras los drones sobrevolaban sus casas. | Imagen generada por IA con fines narrativos. No es un registro real.</div>
+</div>
 
-    <div class="img-container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <img src="https://raw.githubusercontent.com/montanaviva/guerrero-resiste/refs/heads/main/Fotorrealismo_crudo.jfif" alt="Noche de terror en la Montaña Baja de Guerrero" style="width: 100%; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd;" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/2C3E50/8B0000?text=Imagen+no+encontrada';">
-        <div class="img-caption">⬆️ La noche del 10 de mayo de 2026 en la Montaña Baja de Guerrero. Familias enteras huyeron al monte mientras los drones sobrevolaban sus casas. | Imagen generada por IA con fines dramático-narrativos. No es un registro real.</div>
-    </div>
-    
-    <div style="max-width: 1000px; margin: 0 auto; text-align: justify; font-size: 1.05rem; background: #FEF9F0; padding: 40px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-        <p>Lo que ocurre desde el 8 de mayo de 2026 en la Montaña Baja de Guerrero no es un "conflicto entre grupos", como repiten los boletines oficiales. Es un <strong>plan sistemático de desplazamiento forzado y exterminio</strong> ejecutado por el grupo criminal <strong>Los Ardillos</strong> en alianza con la <strong>Familia Michoacana</strong> con la <strong>complicidad por omisión del Estado mexicano</strong>. El objetivo es desalojar a los pueblos originarios asentados sobre el <strong>cinturón minero de oro de Guerrero</strong>.</p>
-        <p style="margin-top: 20px;">Mientras la gobernadora Evelyn Salgado Pineda y la presidenta Claudia Sheinbaum hablan de "diálogo" y "paz", las comunidades de <strong>Tula, Chicotlán, Acahuehuetlán y Alcozacán</strong> son bombardeadas con <strong>drones artillados con explosivos</strong>, sus casas son quemadas, y sus familias huyen a los cerros con niños en brazos. El Ejército mexicano tiene bases a menos de 10 km y <strong>no interviene</strong>. Las <strong>medidas de protección de la CNDH de 2021</strong> para estas comunidades se han convertido en "letra muerta bajo el fuego de Los Ardillos". Este es un <strong>etnocidio en curso</strong>.</p>
-    </div>
-</section>
-
-<!-- TESTIMONIOS -->
-<section class="section" id="testimonios" style="background: #F5F0E8;">
-    <h2 class="section-title" data-i18n="testimonios_title">La noche que el 10 de mayo se volvió huida</h2>
-    <p class="section-sub" data-i18n="testimonios_sub">"Este día de las madres no hay nada que festejar. Pasamos la noche huyendo con nuestros hijos para escapar de la balacera y los ataques con drones." — Mujeres indígenas nahuas de Tula, CIPOG-EZ</p>
-    <div class="testimonials-grid" id="testimonialsContainer"></div>
-</section>
-
-<!-- DATOS DUROS -->
+<!-- CONTEXTO ESTRUCTURAL: MINERÍA Y DESPOJO -->
 <section class="section">
-    <h2 class="section-title" data-i18n="data_title">Cifras que duelen. Evidencia que grita.</h2>
-    <div class="stats-grid" id="statsGrid"></div>
-    
-    <div class="img-container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-        <img src="https://github.com/montanaviva/guerrero-resiste/blob/main/attak_drone_guerrero.png?raw=true" alt="Ataque con drones en Guerrero" style="width: 100%; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd;" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/2C3E50/8B0000?text=Imagen+no+encontrada';">
-        <div class="img-caption">⬆️ Perspectiva de dron durante los ataques en la Montaña Baja. | Imagen generada por IA con fines de sensibilización.</div>
-    </div>
+    <h2 class="section-title" data-i18n="context_title">El oro que mancha de sangre la Montaña</h2>
+    <p class="section-sub" data-i18n="context_sub">Detrás de cada dron, cada bala, cada casa quemada, hay un interés mineral. Esto no es violencia irracional. Es limpieza social para abrir paso a la minería.</p>
     
     <div class="analysis-block">
         <div class="analysis-grid">
             <div class="analysis-card">
+                <h3>⛏️ Cinturón de oro de Guerrero</h3>
+                <p data-i18n="mining1">Las comunidades de Tula, Alcozacán y Chicotlán se asientan sobre una de las zonas auríferas más ricas de México. Concesiones como <strong>"Los Filos" (Equinox Gold)</strong> y <strong>"Media Luna" (Torex Gold)</strong> han expandido su territorio mediante despojo y violencia paramilitar.</p>
+            </div>
+            <div class="analysis-card">
                 <h3>🔫 Los Ardillos + Familia Michoacana</h3>
-                <p>Operan bajo la <strong>Santa Alianza</strong> que controla la región. Usan drones explosivos, armas calibre .50, incendios sistemáticos y bloqueos armados. El 10 de mayo, en Chicotlán, <strong>privaron de la libertad a 15 personas</strong>, trasladándolas a Colotepec.</p>
+                <p data-i18n="mining2">Operan bajo la <strong>"Santa Alianza"</strong>, protegidos por omisión del Estado. Usan drones artillados, armas calibre .50 y bloqueos. El 10 de mayo <strong>privaron de libertad a 15 personas</strong> en Chicotlán, trasladándolas a Colotepec.</p>
             </div>
             <div class="analysis-card">
-                <h3>🏛️ Omisión del Estado mexicano</h3>
-                <p>Bases militares en Tula observaron los ataques sin intervenir. La <strong>CNDH emitió medidas cautelares en 2021</strong> para evitar este desplazamiento. El gobierno no ha desplegado un operativo de extracción.</p>
-            </div>
-            <div class="analysis-card">
-                <h3>⛏️ El botín: Cinturón minero de oro</h3>
-                <p>Las comunidades se asientan sobre una de las zonas auríferas más ricas de México. El despojo territorial vía violencia criminal es la estrategia de <strong>limpieza social</strong> para expandir concesiones como <strong>"Los Filos" y "Media Luna"</strong>.</p>
+                <h3>🏛️ Complicidad por omisión</h3>
+                <p data-i18n="mining3">Bases militares en Tula observaron los ataques sin intervenir. La <strong>CNDH emitió medidas cautelares en 2021</strong> para prevenir este desplazamiento. El gobierno no ha desplegado operativo de extracción. Las demandas del CIPOG-EZ (helicópteros) siguen sin respuesta.</p>
             </div>
         </div>
     </div>
-    
-    <div class="map-container" id="mapContainer"></div>
-    <canvas id="displacementChart" width="100%" style="max-height: 400px; margin: 40px 0;"></canvas>
 </section>
 
-<!-- CRONOLOGÍA -->
-<section class="section" style="background: #FFF8F0; border-radius: 48px;" id="cronologia">
-    <h2 class="section-title" data-i18n="cronologia_title">⏳ Cronología del horror: 8-11 de mayo de 2026</h2>
-    <div style="max-width: 900px; margin: 0 auto;" id="cronologiaList"></div>
+<!-- DATOS DUROS ACTUALIZADOS -->
+<section class="section" style="background: #F5F0E8; border-radius: 48px;">
+    <h2 class="section-title" data-i18n="data_title">Cifras que el gobierno no quiere ver</h2>
+    <div class="stats-grid" id="statsGrid"></div>
+    <canvas id="displacementChart" style="max-height: 400px; margin: 40px auto;"></canvas>
+    <p style="text-align: center; font-size: 0.85rem; margin-top: 20px;" data-i18n="data_fuente">Fuente: CIPOG-EZ, Tlachinollan, monitoreo comunitario (actualizado 14 mayo 2026)</p>
 </section>
 
-<div class="img-container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-    <img src="https://github.com/montanaviva/guerrero-resiste/blob/main/Doasphora_guerrero1.png?raw=true" alt="Iglesia refugio en Guerrero" style="width: 100%; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid #ddd;" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/2C3E50/8B0000?text=Imagen+no+encontrada';">
+<!-- IMAGEN 2: Ataque con drones -->
+<div class="img-container">
+    <img src="https://github.com/montanaviva/guerrero-resiste/blob/main/La_mirada_desde_adentro_no_la_mirada_externa.png?raw=true" alt="Ataque con drones en Guerrero" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/1A1A2E/8B0000?text=Imagen+no+encontrada';">
+    <div class="img-caption">⬆️ Perspectiva de dron durante los ataques en la Montaña Baja. | Imagen generada por IA con fines de sensibilización.</div>
+</div>
+
+<!-- TESTIMONIOS EN SUS PROPIAS PALABRAS -->
+<section class="section" id="testimonios">
+    <h2 class="section-title" data-i18n="test_title">“Este 10 de mayo no hubo nada que festejar”</h2>
+    <p class="section-sub" data-i18n="test_sub">Testimonios sin editar, sin traducir, sin interpretar. La voz de quien vive la guerra.</p>
+    <div class="testimonials-grid" id="testimonialsContainer"></div>
+</section>
+
+<!-- IMAGEN 3: Refugio en iglesia -->
+<div class="img-container">
+    <img src="https://github.com/montanaviva/guerrero-resiste/blob/main/El_dron_como_ojo_del_opresor_cr%C3%ADtica_ala_tecnolog%C3%ADa_devigilancia.png?raw=true" alt="Iglesia refugio en Guerrero" onerror="this.onerror=null; this.src='https://placehold.co/1200x500/1A1A2E/8B0000?text=Imagen+no+encontrada';">
     <div class="img-caption">⬆️ Familias desplazadas refugiadas en una iglesia de la Montaña Baja. | Imagen generada por IA con fines narrativos.</div>
 </div>
 
-<!-- ACCIONES -->
+<!-- MAPA DE TERRITORIO AFECTADO -->
+<section class="section">
+    <h2 class="section-title" data-i18n="map_title">Territorio bajo fuego</h2>
+    <p class="section-sub" data-i18n="map_sub">Montaña Baja de Guerrero · Pueblos Na savi, Me'phaa y Nahuas</p>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+    <p style="text-align: center; font-size: 0.8rem; margin-top: 10px;" data-i18n="map_aviso"><strong>⚠️ No acudir a estas zonas sin acompañamiento comunitario.</strong> La solidaridad no es turismo de guerra.</p>
+</section>
+
+<!-- DEMANDAS AL ESTADO MEXICANO (CONTRASTE CORREGIDO) -->
+<section class="demands-section">
+    <h2 data-i18n="demands_title">Las seis demandas del CIPOG-EZ</h2>
+    <p style="text-align: center; margin-bottom: 40px; font-style: italic; color: #E67E22;" data-i18n="demands_intro">Todas dirigidas al Estado mexicano. Ninguna a Washington. Ninguna a la ONU.</p>
+    <div class="demands-list" id="demandsList"></div>
+    <p style="text-align: center; margin-top: 40px; color: #E67E22; font-weight: bold;" data-i18n="demands_note"><strong>No hay punto 7 pidiendo intervención extranjera.</strong> El pueblo organizado es soberanista.</p>
+</section>
+
+<!-- ACCIONES HORIZONTALES -->
 <section class="section" id="acciones">
-    <h2 class="section-title" data-i18n="acciones_title">Tu solidaridad puede frenar esta masacre</h2>
-    <p class="section-sub" data-i18n="acciones_sub">No pedimos limosna. Exigimos justicia. Que el mundo sepa.</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-        <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <div style="font-size: 3.5rem;">📧</div>
-            <h3 data-i18n="accion1_titulo" style="margin: 20px 0 10px;">Envía denuncia internacional</h3>
-            <p data-i18n="accion1_texto">Copia las direcciones de ONU, CIDH, HRW y Amnistía Internacional.</p>
-            <button class="btn-primary" id="copyEmailsBtn" style="margin-top: 20px;">📋 Copiar destinatarios</button>
+    <h2 class="section-title" data-i18n="actions_title">No vengas a salvarnos. Ven a presionar con nosotres.</h2>
+    <p class="section-sub" data-i18n="actions_sub">Esto no es caridad. Es justicia. El mundo debe saber.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+        <div style="background: white; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem;">📧</div>
+            <h3 data-i18n="action1_title" style="margin: 15px 0;">Denuncia internacional</h3>
+            <p data-i18n="action1_text">Copia los correos de CIDH, ONU, HRW y Amnistía. Exige medidas cautelares.</p>
+            <button class="btn-primary" id="copyEmailsBtn" style="margin-top: 20px; background: #8B0000;">📋 Copiar destinatarios</button>
         </div>
-        <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <div style="font-size: 3.5rem;">💬</div>
-            <h3 data-i18n="accion2_titulo" style="margin: 20px 0 10px;">Compartir en WhatsApp</h3>
-            <p data-i18n="accion2_texto">Envía esta alerta a tus contactos. La información salva vidas.</p>
-            <button class="btn-secondary" id="shareWhatsAppBtn" style="margin-top: 20px;">📱 Compartir ahora</button>
+        <div style="background: white; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem;">📱</div>
+            <h3 data-i18n="action2_title" style="margin: 15px 0;">Rompe el cerco informativo</h3>
+            <p data-i18n="action2_text">Comparte esta alerta. La información también es resistencia.</p>
+            <button class="btn-secondary" id="shareWhatsAppBtn" style="margin-top: 20px;background: #8B0000;">📲 WhatsApp</button>
+            <button class="btn-secondary" id="shareTwitterBtn" style="margin-top: 10px;background: #8B0000;">🐦 X / Twitter</button>
         </div>
-        <div style="background: white; border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <div style="font-size: 3.5rem;">📢</div>
-            <h3 data-i18n="accion3_titulo" style="margin: 20px 0 10px;">Difunde en redes</h3>
-            <p data-i18n="accion3_texto">Rompe el cerco informativo. Usa #GuerreroResiste</p>
-            <button class="btn-secondary" id="shareTwitterBtn" style="margin-top: 20px;">🐦 X / Twitter</button>
+        <div style="background: white; border-radius: 20px; padding: 30px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.1);">
+            <div style="font-size: 2.5rem;">🏛️</div>
+            <h3 data-i18n="action3_title" style="margin: 15px 0;">Presión interna en México</h3>
+            <p data-i18n="action3_text">Escribe a la CNDH, a la Secretaría de Gobernación. Exige el cumplimiento de las medidas cautelares de 2021.</p>
+            <button class="btn-primary" id="copyMxEmailsBtn" style="margin-top: 20px; background: #8B0000;">📋 Correos México</button>
         </div>
+    </div>
+</section>
+
+<!-- TRANSPARENCIA Y LÍMITES DEL PROYECTO -->
+<section class="section" style="background: #ECF0F1; border-radius: 48px;">
+    <h2 class="section-title" data-i18n="transparency_title">Sobre este sitio: autocrítica y horizontes</h2>
+    <div style="max-width: 850px; margin: 0 auto; background: white; padding: 35px; border-radius: 24px;">
+        <p data-i18n="transparency_text1"><strong>¿Quién hizo esto?</strong> Un estudiante de RRII, con formación en programación. No es un colectivo. No tiene financiamiento. Es un ejercicio de <strong>Responsabilidad Social Universitaria</strong>, con todos sus límites.</p>
+        <p style="margin-top: 20px;" data-i18n="transparency_text2"><strong>Límites asumidos:</strong> Este sitio NO sustituye la voz de CIPOG-EZ, Tlachinollan o CNI. NO garantiza resultados. NO protege de vigilancia digital. NO es una solución.</p>
+        <p style="margin-top: 20px;" data-i18n="transparency_text3"><strong>Lo que SÍ intenta:</strong> Ser un puente, amplificar, documentar, presionar al Estado mexicano desde el marco legal (DADPI, SIDH, Constitución). Nada más. Nada menos.</p>
+        <p style="margin-top: 20px; font-style: italic; border-left: 4px solid #E67E22; padding-left: 20px;" data-i18n="transparency_quote">“La inclusión no es llevar personas a lo que ya existe; es crear nuevos espacios para todos” — George Dei</p>
     </div>
 </section>
 
 <footer>
-    <p>📢 Este es un proyecto ciudadano independiente de documentación y denuncia.</p>
-    <p>🛡️ Vocería con seudónimo por seguridad. Datos verificados con fuentes abiertas, testimonios directos, Centro de Derechos Humanos Tlachinollan y CIPOG-EZ.</p>
-    <p>⚠️ No solicitamos donaciones. No pedimos armas. Exigimos justicia, intervención federal y fin a la impunidad.</p>
-    <p style="margin-top: 30px; font-family: 'Playfair Display', serif; font-size: 1.2rem;">"La montaña no se vende, se ama y se defiende"</p>
-    <p style="margin-top: 20px;">Comunidades de la Montaña de Guerrero · 2026</p>
+    <p>📢 En solidaridad con las comunidades de la Montaña Baja de Guerrero.</p>
+    <p>🛡️ Proyecto independiente · Sin fines de lucro · UNRC</p>
+    <p>⚖️ Marco legal: DADPI (OEA, 2016) + SIDH + Constitución Mexicana (Arts. 1 y 2)</p>
+    <p>🤝 Organizaciones en territorio: <a href="https://www.tlachinollan.org" target="_blank">Tlachinollan</a> · <a href="https://www.facebook.com/CIPOGEZ/" target="_blank">CIPOG-EZ</a> · <a href="https://www.congresonacionalindigena.org" target="_blank">CNI</a></p>
+    <p class="footer-quote">“La Montaña no se vende, se ama y se defiende”</p>
+    <p style="font-size: 0.75rem;">Actualización: 14 mayo 2026 · Datos verificados con fuentes abiertas y monitoreo comunitario</p>
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    // ======================== TRADUCCIONES COMPLETAS ========================
-    const translations = {
-        es: {
-            hero_badge: "CRIMEN DE ESTADO · ETNOCIDIO · GUERRERO",
-            hero_title: "Ellos huyen. El gobierno observa.<br>Los drones matan.",
-            hero_timestamp: "🕊️ 3:16 PM · 11 de mayo de 2026 · Alcozacán, Guerrero",
-            hero_quote: "“Escuchen, por favor, y difúndanlo. Que esta noticia llegue a todo el mundo. Aquí no hay ningún apoyo, aquí no ha llegado ningún gobierno. Son las 3:16 de la tarde, toda la comunidad está huyendo.” — Testigo directo, Alcozacán",
-            cta_testimonios: "📖 Escuchar sus voces",
-            cta_actuar: "✊ ACTUAR AHORA",
-            context_title: "Montaña Baja: El territorio donde el oro vale más que una familia",
-            context_sub: "La violencia no es caos. Es una estrategia de limpieza social para abrir paso al saqueo minero, con la complicidad del Estado.",
-            testimonios_title: "La noche que el 10 de mayo se volvió huida",
-            testimonios_sub: "“Este día de las madres no hay nada que festejar. Pasamos la noche huyendo con nuestros hijos para escapar de la balacera y los ataques con drones.” — Mujeres indígenas nahuas de Tula, CIPOG-EZ",
-            data_title: "Cifras que duelen. Evidencia que grita.",
-            cronologia_title: "⏳ Cronología del horror: 8-11 de mayo de 2026",
-            acciones_title: "Tu solidaridad puede frenar esta masacre",
-            acciones_sub: "No pedimos limosna. Exigimos justicia. Que el mundo sepa.",
-            accion1_titulo: "Envía denuncia internacional",
-            accion1_texto: "Copia las direcciones de ONU, CIDH, HRW y Amnistía Internacional.",
-            accion2_titulo: "Compartir en WhatsApp",
-            accion2_texto: "Envía esta alerta a tus contactos. La información salva vidas.",
-            accion3_titulo: "Difunde en redes",
-            accion3_texto: "Rompe el cerco informativo. Usa #GuerreroResiste"
-        },
-        en: {
-            hero_badge: "STATE CRIME · ETHNOCIDE · GUERRERO",
-            hero_title: "They flee. The government watches.<br>The drones kill.",
-            hero_timestamp: "🕊️ 3:16 PM · May 11, 2026 · Alcozacán, Guerrero",
-            hero_quote: "“Please listen and share this. Let this news reach the whole world. There is no support here, no government has arrived. It's 3:16 in the afternoon, the entire community is fleeing.” — Eyewitness, Alcozacán",
-            cta_testimonios: "📖 Hear their voices",
-            cta_actuar: "✊ ACT NOW",
-            context_title: "Montaña Baja: The territory where gold is worth more than a family",
-            context_sub: "The violence is not chaos. It is a social cleansing strategy to open the way for mining plunder, with State complicity.",
-            testimonios_title: "The night May 10 became a flight",
-            testimonios_sub: "“Mother's Day has nothing to celebrate. We spent the night fleeing with our children to escape the shooting and drone attacks.” — Nahua indigenous women from Tula, CIPOG-EZ",
-            data_title: "Painful numbers. Screaming evidence.",
-            cronologia_title: "⏳ Timeline of horror: May 8-11, 2026",
-            acciones_title: "Your solidarity can stop this massacre",
-            acciones_sub: "We do not beg. We demand justice. Let the world know.",
-            accion1_titulo: "Send international complaint",
-            accion1_texto: "Copy emails to UN, IACHR, HRW and Amnesty International.",
-            accion2_titulo: "Share on WhatsApp",
-            accion2_texto: "Send this alert to your contacts. Information saves lives.",
-            accion3_titulo: "Spread on social media",
-            accion3_texto: "Break the information blockade. Use #GuerreroResists"
-        },
-        fr: {
-            hero_badge: "CRIME D'ÉTAT · ETHNOCIDE · GUERRERO",
-            hero_title: "Ils fuient. Le gouvernement observe.<br>Les drones tuent.",
-            hero_timestamp: "🕊️ 15h16 · 11 mai 2026 · Alcozacán, Guerrero",
-            hero_quote: "“Écoutez, s'il vous plaît, et partagez. Que cette nouvelle atteigne le monde entier. Il n'y a aucune aide ici, aucun gouvernement n'est arrivé. Il est 15h16, toute la communauté est en fuite.” — Témoin direct, Alcozacán",
-            cta_testimonios: "📖 Écouter leurs voix",
-            cta_actuar: "✊ AGIR MAINTENANT",
-            context_title: "Montaña Baja : Le territoire où l'or vaut plus qu'une famille",
-            context_sub: "La violence n'est pas le chaos. C'est une stratégie de nettoyage social pour ouvrir la voie au pillage minier, avec la complicité de l'État.",
-            testimonios_title: "La nuit où le 10 mai est devenu une fuite",
-            testimonios_sub: "“La fête des mères n'a rien de célébrer. Nous avons passé la nuit à fuir avec nos enfants pour échapper aux tirs et aux attaques de drones.” — Femmes autochtones nahua de Tula, CIPOG-EZ",
-            data_title: "Des chiffres douloureux. Des preuves qui crient.",
-            cronologia_title: "⏳ Chronologie de l'horreur : 8-11 mai 2026",
-            acciones_title: "Votre solidarité peut arrêter ce massacre",
-            acciones_sub: "Nous ne mendions pas. Nous exigeons justice. Que le monde le sache.",
-            accion1_titulo: "Envoyer une plainte internationale",
-            accion1_texto: "Copiez les adresses ONU, CIDH, HRW et Amnesty International.",
-            accion2_titulo: "Partager sur WhatsApp",
-            accion2_texto: "Envoyez cette alerte à vos contacts. L'information sauve des vies.",
-            accion3_titulo: "Diffuser sur les réseaux",
-            accion3_texto: "Brisez le blocus informationnel. Utilisez #GuerreroRésiste"
-        }
+// ============ TRADUCCIONES COMPLETAS (MISMO CÓDIGO QUE ANTES) ============
+const translations = {
+    es: {
+        hero_badge: "ETNOCIDIO EN CURSO · GUERRERO RESISTE",
+        hero_title: "El Estado observa.<br>Los drones matan.<br>Nosotres sobrevivimos.",
+        hero_timestamp: "⏱️ 3:16 PM · 11 de mayo de 2026 · Alcozacán, Guerrero",
+        hero_quote: "“Son las 3:16 de la tarde, estamos aquí en Alcozacán, toda la comunidad está huyendo. Aquí no hay ningún apoyo, no ha llegado ningún gobierno.” — Testigo directo",
+        cta1: "📢 Escuchar sus voces",
+        cta2: "✊ Presionar al Estado",
+        context_title: "El oro que mancha de sangre la Montaña",
+        context_sub: "Detrás de cada dron, cada bala, cada casa quemada, hay un interés mineral. Esto no es violencia irracional. Es limpieza social para abrir paso a la minería.",
+        mining1: "Las comunidades de Tula, Alcozacán y Chicotlán se asientan sobre una de las zonas auríferas más ricas de México. Concesiones como <strong>'Los Filos' (Equinox Gold)</strong> y <strong>'Media Luna' (Torex Gold)</strong> han expandido su territorio mediante despojo y violencia paramilitar.",
+        mining2: "Operan bajo la <strong>'Santa Alianza'</strong>, protegidos por omisión del Estado. Usan drones artillados, armas calibre .50 y bloqueos. El 10 de mayo <strong>privaron de libertad a 15 personas</strong> en Chicotlán, trasladándolas a Colotepec.",
+        mining3: "Bases militares en Tula observaron los ataques sin intervenir. La <strong>CNDH emitió medidas cautelares en 2021</strong> para prevenir este desplazamiento. El gobierno no ha desplegado operativo de extracción. Las demandas del CIPOG-EZ (helicópteros) siguen sin respuesta.",
+        data_title: "Cifras que el gobierno no quiere ver",
+        data_fuente: "Fuente: CIPOG-EZ, Tlachinollan, monitoreo comunitario (actualizado 14 mayo 2026)",
+        test_title: "“Este 10 de mayo no hubo nada que festejar”",
+        test_sub: "Testimonios sin editar, sin traducir, sin interpretar. La voz de quien vive la guerra.",
+        map_title: "Territorio bajo fuego",
+        map_sub: "Montaña Baja de Guerrero · Pueblos Na savi, Me'phaa y Nahuas",
+        map_aviso: "⚠️ No acudir a estas zonas sin acompañamiento comunitario. La solidaridad no es turismo de guerra.",
+        demands_title: "Las seis demandas del CIPOG-EZ",
+        demands_intro: "Todas dirigidas al Estado mexicano. Ninguna a Washington. Ninguna a la ONU.",
+        demands_note: "No hay punto 7 pidiendo intervención extranjera. El pueblo organizado es soberanista.",
+        actions_title: "No vengas a salvarnos. Ven a presionar con nosotres.",
+        actions_sub: "Esto no es caridad. Es justicia. El mundo debe saber.",
+        action1_title: "Denuncia internacional",
+        action1_text: "Copia los correos de CIDH, ONU, HRW y Amnistía. Exige medidas cautelares.",
+        action2_title: "Rompe el cerco informativo",
+        action2_text: "Comparte esta alerta. La información también es resistencia.",
+        action3_title: "Presión interna en México",
+        action3_text: "Escribe a la CNDH, a la Secretaría de Gobernación. Exige el cumplimiento de las medidas cautelares de 2021.",
+        transparency_title: "Sobre este sitio: autocrítica y horizontes",
+        transparency_text1: "¿Quién hizo esto? Un estudiante de RRII, con formación en programación. No es un colectivo. No tiene financiamiento. Es un ejercicio de Responsabilidad Social Universitaria, con todos sus límites.",
+        transparency_text2: "Límites asumidos: Este sitio NO sustituye la voz de CIPOG-EZ, Tlachinollan o CNI. NO garantiza resultados. NO protege de vigilancia digital. NO es una solución.",
+        transparency_text3: "Lo que SÍ intenta: Ser un puente, amplificar, documentar, presionar al Estado mexicano desde el marco legal (DADPI, SIDH, Constitución). Nada más. Nada menos.",
+        transparency_quote: "“La inclusión no es llevar personas a lo que ya existe; es crear nuevos espacios para todos” — George Dei"
+    },
+    en: {
+        hero_badge: "ONGOING ETHNOCIDE · GUERRERO RESISTS",
+        hero_title: "The State watches.<br>The drones kill.<br>We survive.",
+        hero_timestamp: "⏱️ 3:16 PM · May 11, 2026 · Alcozacán, Guerrero",
+        hero_quote: "“It's 3:16 in the afternoon, we are here in Alcozacán, the entire community is fleeing. There's no support here, no government has arrived.” — Eyewitness",
+        cta1: "📢 Hear their voices",
+        cta2: "✊ Pressure the State",
+        context_title: "The gold that stains the Mountain with blood",
+        context_sub: "Behind every drone, every bullet, every burned house, there is a mineral interest. This is not irrational violence. It is social cleansing to make way for mining.",
+        mining1: "The communities of Tula, Alcozacán and Chicotlán sit on one of Mexico's richest gold belts. Concessions like <strong>'Los Filos' (Equinox Gold)</strong> and <strong>'Media Luna' (Torex Gold)</strong> have expanded through dispossession and paramilitary violence.",
+        mining2: "They operate under the <strong>'Santa Alianza'</strong>, protected by state omission. They use armed drones, .50 caliber weapons, and blockades. On May 10, they <strong>deprived 15 people of liberty</strong> in Chicotlán, taking them to Colotepec.",
+        mining3: "Military bases in Tula watched the attacks without intervening. The <strong>CNDH issued precautionary measures in 2021</strong> to prevent this displacement. The government has not deployed an extraction operation. CIPOG-EZ's demands (helicopters) remain unanswered.",
+        data_title: "Figures the government doesn't want to see",
+        data_fuente: "Source: CIPOG-EZ, Tlachinollan, community monitoring (updated May 14, 2026)",
+        test_title: "“There was nothing to celebrate on May 10”",
+        test_sub: "Unedited, untranslated, uninterpreted testimonies. The voice of those living the war.",
+        map_title: "Territory under fire",
+        map_sub: "Lower Montaña of Guerrero · Na savi, Me'phaa and Nahua peoples",
+        map_aviso: "⚠️ Do not go to these areas without community accompaniment. Solidarity is not war tourism.",
+        demands_title: "The six demands of CIPOG-EZ",
+        demands_intro: "All directed to the Mexican State. None to Washington. None to the UN.",
+        demands_note: "There is no point 7 asking for foreign intervention. The organized people are sovereign.",
+        actions_title: "Don't come to save us. Come to pressure with us.",
+        actions_sub: "This is not charity. It is justice. The world must know.",
+        action1_title: "International complaint",
+        action1_text: "Copy emails to IACHR, UN, HRW and Amnesty. Demand precautionary measures.",
+        action2_title: "Break the information blockade",
+        action2_text: "Share this alert. Information is also resistance.",
+        action3_title: "Internal pressure in Mexico",
+        action3_text: "Write to CNDH, to the Ministry of the Interior. Demand compliance with the 2021 precautionary measures.",
+        transparency_title: "About this site: self-criticism and horizons",
+        transparency_text1: "Who made this? An International Relations student (UNRC), with programming training and experience in child protection in Guerrero. It is not a collective. No funding. It is an exercise in University Social Responsibility, with all its limitations.",
+        transparency_text2: "Assumed limits: This site does NOT replace the voice of CIPOG-EZ, Tlachinollan or CNI. It does NOT guarantee results. It does NOT protect against digital surveillance. It is NOT a solution.",
+        transparency_text3: "What it DOES try to do: Be a bridge, amplify, document, pressure the Mexican State from the legal framework (DADPI, IAHRS, Constitution). Nothing more. Nothing less.",
+        transparency_quote: "“Inclusion is not bringing people into what already exists; it is creating new spaces for everyone” — George Dei"
+    },
+    fr: {
+        hero_badge: "ETHNOCIDE EN COURS · GUERRERO RÉSISTE",
+        hero_title: "L'État observe.<br>Les drones tuent.<br>Nous survivons.",
+        hero_timestamp: "⏱️ 15h16 · 11 mai 2026 · Alcozacán, Guerrero",
+        hero_quote: "“Il est 15h16, nous sommes ici à Alcozacán, toute la communauté fuit. Il n'y a aucune aide ici, aucun gouvernement n'est arrivé.” — Témoin",
+        cta1: "📢 Écouter leurs voix",
+        cta2: "✊ Faire pression sur l'État",
+        context_title: "L'or qui tache la Montaña de sang",
+        context_sub: "Derrière chaque drone, chaque balle, chaque maison brûlée, il y a un intérêt minier. Ce n'est pas une violence irrationnelle. C'est un nettoyage social pour ouvrir la voie à l'exploitation minière.",
+        mining1: "Les communautés de Tula, Alcozacán et Chicotlán sont assises sur l'une des ceintures aurifères les plus riches du Mexique. Des concessions comme <strong>'Los Filos' (Equinox Gold)</strong> et <strong>'Media Luna' (Torex Gold)</strong> se sont étendues par dépossession et violence paramilitaire.",
+        mining2: "Ils opèrent sous la <strong>'Santa Alianza'</strong>, protégés par l'omission de l'État. Ils utilisent des drones armés, des armes de calibre .50 et des blocus. Le 10 mai, ils ont <strong>privé 15 personnes de liberté</strong> à Chicotlán, les emmenant à Colotepec.",
+        mining3: "Les bases militaires de Tula ont observé les attaques sans intervenir. La <strong>CNDH a émis des mesures conservatoires en 2021</strong> pour prévenir ce déplacement. Le gouvernement n'a pas déployé d'opération d'extraction. Les demandes du CIPOG-EZ (hélicoptères) restent sans réponse.",
+        data_title: "Chiffres que le gouvernement ne veut pas voir",
+        data_fuente: "Source : CIPOG-EZ, Tlachinollan, monitoring communautaire (mis à jour le 14 mai 2026)",
+        test_title: "“Il n'y avait rien à fêter le 10 mai”",
+        test_sub: "Témoignages non édités, non traduits, non interprétés. La voix de ceux qui vivent la guerre.",
+        map_title: "Territoire sous le feu",
+        map_sub: "Basse Montaña de Guerrero · Peuples Na savi, Me'phaa et Nahuas",
+        map_aviso: "⚠️ Ne vous rendez pas dans ces zones sans accompagnement communautaire. La solidarité n'est pas du tourisme de guerre.",
+        demands_title: "Les six demandes du CIPOG-EZ",
+        demands_intro: "Toutes adressées à l'État mexicain. Aucune à Washington. Aucune à l'ONU.",
+        demands_note: "Il n'y a pas de point 7 demandant une intervention étrangère. Le peuple organisé est souverainiste.",
+        actions_title: "Ne venez pas nous sauver. Venez faire pression avec nous.",
+        actions_sub: "Ce n'est pas de la charité. C'est la justice. Le monde doit savoir.",
+        action1_title: "Plainte internationale",
+        action1_text: "Copiez les emails de la CIDH, de l'ONU, de HRW et d'Amnesty. Exigez des mesures conservatoires.",
+        action2_title: "Brisez le blocus informationnel",
+        action2_text: "Partagez cette alerte. L'information est aussi une résistance.",
+        action3_title: "Pression interne au Mexique",
+        action3_text: "Écrivez à la CNDH, au Ministère de l'Intérieur. Exigez le respect des mesures conservatoires de 2021.",
+        transparency_title: "À propos de ce site : autocratique et horizons",
+        transparency_text1: "Qui a fait cela ? Un étudiant en Relations Internationales (UNRC), formé en programmation et ayant une expérience dans la protection de l'enfance au Guerrero. Ce n'est pas un collectif. Pas de financement. C'est un exercice de Responsabilité Sociale Universitaire, avec toutes ses limites.",
+        transparency_text2: "Limites assumées : Ce site NE remplace PAS la voix du CIPOG-EZ, de Tlachinollan ou du CNI. Il NE garantit PAS de résultats. Il NE protège PAS contre la surveillance numérique. Il N'EST PAS une solution.",
+        transparency_text3: "Ce qu'il ESSAIE de faire : Être un pont, amplifier, documenter, faire pression sur l'État mexicain à partir du cadre juridique (DADPI, SIDH, Constitution). Rien de plus. Rien de moins.",
+        transparency_quote: "“L'inclusion ne consiste pas à amener les gens dans ce qui existe déjà ; c'est créer de nouveaux espaces pour tous” — George Dei"
+    }
+};
+
+let currentLang = localStorage.getItem('lang') || 'es';
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    renderTestimonios(lang);
+    renderStats();
+    renderDemands(lang);
+    updateChartLabel(lang);
+}
+
+function renderTestimonios(lang) {
+    const testimonials = {
+        es: [
+            { text: "“Soy una señora de Tula. Me salí a la 1 pm porque nos tiraban con drones y armas .50. Saqué a mis dos niños gemelos como pude. Ya habían destrozado mi puerta.”", meta: "Tula · Madre de familia · 10 mayo 2026" },
+            { text: "“Son las 3:16 pm, estamos en Alcozacán, toda la comunidad huye. Para que no digan que el gobierno engaña. Aquí no hay ningún apoyo.”", meta: "Alcozacán · Testigo directo · 11 mayo 2026" },
+            { text: "“Este día de las madres no hay nada que festejar. Pasamos la noche huyendo, cargando a nuestros hijos para escapar de la balacera y los drones.”", meta: "Mujeres nahuas · CIPOG-EZ · 10 mayo 2026" },
+            { text: "“El ejército le ha abierto espacio a estos sicarios. Mi mamá me llamó desesperada. Dice que lanzaron dos drones para matar a los refugiados.”", meta: "Familiar desplazada · Alcozacán" },
+            { text: "“Solicitamos helicópteros para extracción y protección. No pedimos renuncia.”", meta: "CIPOG-EZ a Presidenta Sheinbaum · 11 mayo 2026" }
+        ],
+        en: [
+            { text: "“I'm a woman from Tula. I left at 1 pm because they were shooting at us with drones and .50 calibers. I took my twin children as best I could. They had already destroyed my door.”", meta: "Tula · Mother · May 10, 2026" },
+            { text: "“It's 3:16 pm, we're in Alcozacán, the whole community is fleeing. So they can't say the government lies. There's no support here.”", meta: "Alcozacán · Witness · May 11, 2026" },
+            { text: "“Mother's Day has nothing to celebrate. We spent the night fleeing, carrying our children to escape the shooting and drones.”", meta: "Nahua Women · CIPOG-EZ · May 10, 2026" },
+            { text: "“The army has made space for these hitmen. My mother called me desperate. She says they launched two drones to kill the refugees.”", meta: "Displaced relative · Alcozacán" },
+            { text: "“We request helicopters for extraction and protection. We are not asking for resignation.”", meta: "CIPOG-EZ to President Sheinbaum · May 11, 2026" }
+        ],
+        fr: [
+            { text: "“Je suis une femme de Tula. Je suis partie à 13h parce qu'ils tiraient avec des drones et du calibre .50. J'ai pris mes jumeaux comme j'ai pu. Ils avaient déjà détruit ma porte.”", meta: "Tula · Mère · 10 mai 2026" },
+            { text: "“Il est 15h16, nous sommes à Alcozacán, toute la communauté fuit. Pour qu'ils ne disent pas que le gouvernement ment. Il n'y a aucune aide.”", meta: "Alcozacán · Témoin · 11 mai 2026" },
+            { text: "“Cette fête des mères, rien à célébrer. Nous avons passé la nuit à fuir, portant nos enfants pour échapper aux tirs et aux drones.”", meta: "Femmes nahua · CIPOG-EZ · 10 mai 2026" },
+            { text: "“L'armée a fait de la place pour ces tueurs. Ma mère m'a appelée désespérée. Elle dit qu'ils ont lancé deux drones pour tuer les réfugiés.”", meta: "Famille déplacée · Alcozacán" },
+            { text: "“Nous demandons des hélicoptères pour l'extraction et la protection. Nous ne demandons pas de démission.”", meta: "CIPOG-EZ à la Présidente Sheinbaum · 11 mai 2026" }
+        ]
     };
+    const container = document.getElementById('testimonialsContainer');
+    if (container) container.innerHTML = testimonials[lang].map(t => `<div class="testimonial-card"><div class="testimonial-text">${t.text}</div><div class="testimonial-meta">📍 ${t.meta}</div></div>`).join('');
+}
 
-    let currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('es') ? 'es' : (navigator.language.startsWith('fr') ? 'fr' : 'en'));
+function renderStats() {
+    const stats = [
+        { num: "800+", labelEs: "familias desplazadas", labelEn: "displaced families", labelFr: "familles déplacées" },
+        { num: "76", labelEs: "integrantes asesinados", labelEn: "members assassinated", labelFr: "membres assassinés" },
+        { num: "25", labelEs: "desaparecidos", labelEn: "missing", labelFr: "disparus" },
+        { num: "15", labelEs: "privados de libertad", labelEn: "deprived of liberty", labelFr: "privés de liberté" }
+    ];
+    const container = document.getElementById('statsGrid');
+    if (container) container.innerHTML = stats.map(s => `<div class="stat-card"><div class="stat-number">${s.num}</div><div>${currentLang === 'es' ? s.labelEs : (currentLang === 'en' ? s.labelEn : s.labelFr)}</div></div>`).join('');
+}
 
-    function setLanguage(lang) {
-        currentLang = lang;
-        localStorage.setItem('lang', lang);
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang][key]) el.innerHTML = translations[lang][key];
+function renderDemands(lang) {
+    const demands = {
+        es: [
+            "Reconocimiento público de la crisis de derechos humanos en la Montaña de Guerrero",
+            "Identificación y sanción de responsables, incluyendo funcionarios estatales con vínculos con Los Ardillos",
+            "Revisión de la actuación del Ejército Mexicano que observó los ataques sin intervenir",
+            "Protección efectiva para defensoras y defensores de derechos humanos bajo el Mecanismo Federal",
+            "Atención humanitaria urgente a las 800-1,000 personas desplazadas (alimentos, refugio, atención médica)",
+            "Detención y desarticulación del grupo criminal Los Ardillos mediante operativo federal coordinado"
+        ],
+        en: [
+            "Public recognition of the human rights crisis in Guerrero's Montaña region",
+            "Identification and punishment of those responsible, including state officials linked to Los Ardillos",
+            "Review of the Mexican Army's actions that observed the attacks without intervening",
+            "Effective protection for human rights defenders under the Federal Mechanism",
+            "Urgent humanitarian attention for the 800-1,000 displaced persons (food, shelter, medical care)",
+            "Arrest and dismantling of the criminal group Los Ardillos through a coordinated federal operation"
+        ],
+        fr: [
+            "Reconnaissance publique de la crise des droits humains dans la Montaña de Guerrero",
+            "Identification et sanction des responsables, y compris les fonctionnaires de l'État liés à Los Ardillos",
+            "Révision de l'action de l'armée mexicaine qui a observé les attaques sans intervenir",
+            "Protection effective des défenseurs des droits humains dans le cadre du Mécanisme Fédéral",
+            "Aide humanitaire urgente pour les 800 à 1000 personnes déplacées",
+            "Arrestation et démantèlement du groupe criminel Los Ardillos par une opération fédérale coordonnée"
+        ]
+    };
+    const container = document.getElementById('demandsList');
+    if (container) container.innerHTML = demands[lang].map((d, i) => `<div class="demand-item"><strong>${i+1}.</strong> ${d}</div>`).join('');
+}
+
+let chart;
+function initChart() {
+    const ctx = document.getElementById('displacementChart')?.getContext('2d');
+    if (ctx) {
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['8 mayo', '9 mayo', '10 mayo', '11 mayo', '12 mayo', '13 mayo', '14 mayo'],
+                datasets: [{
+                    label: currentLang === 'es' ? 'Familias desplazadas (acumulado)' : (currentLang === 'en' ? 'Displaced families (cumulative)' : 'Familles déplacées (cumul)'),
+                    data: [50, 180, 420, 810, 910, 940, 960],
+                    borderColor: '#8B0000',
+                    backgroundColor: 'rgba(139,0,0,0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: true }
         });
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-        });
-        renderTestimonios(lang);
-        renderStats();
-        renderCronologia(lang);
-        updateChartLabel(lang);
     }
+}
 
-    function renderTestimonios(lang) {
-        const testimonials = {
-            es: [
-                { text: "“Soy una señora de Tula. Me salí a partir de la una de la tarde porque nos estaban tirando con drones y con armas de alto calibre .50. Saqué a mis dos niños gemelos como pude. Ya habían destrozado mi puerta.”", lugar: "Tula · Madre de familia · 10 mayo 2026" },
-                { text: "“Son las 3:16 de la tarde, estamos aquí en la comunidad de Alcozacán, donde toda la comunidad está huyendo. Para que no les diga que engaña el gobierno. Aquí no hay ningún apoyo, aquí no ha llegado ningún gobierno.”", lugar: "Alcozacán · Testigo directo · 11 mayo 2026" },
-                { text: "“Este día de las madres no hay nada que festejar. Nosotras, las mujeres indígenas nahuas de Tula, tuvimos que pasar la noche huyendo, cargando a nuestros hijos para escapar de la balacera y los ataques con drones.”", lugar: "Mujeres indígenas nahuas · CIPOG-EZ · 10 mayo 2026" },
-                { text: "“Escuchen los ataques de Los Ardillos. Siguen y aquí no hay gobierno federal, no hay gobierno estatal. Las familias desplazadas tuvieron que irse a refugiar a los cerros, a las barrancas, porque aquí ya no están seguras.”", lugar: "Refugiado · Alcozacán · 11 mayo 2026" },
-                { text: "“El ejército se ha encargado de abrirle espacio a estos sicarios. Por favor, denuncien, ayúdenos. Mi mamá me llamó desesperada. Dice que hoy en la mañana lanzaron dos drones queriendo matar a los que se estaban refugiando.”", lugar: "Familiar de desplazada · Alcozacán" }
-            ],
-            en: [
-                { text: "“I am a woman from Tula. I left at one in the afternoon because they were shooting at us with drones and .50 caliber weapons. I took my twin children as best I could. They had already destroyed my door.”", lugar: "Tula · Mother · May 10, 2026" },
-                { text: "“It's 3:16 in the afternoon, we are here in Alcozacán, where the entire community is fleeing. So they can't say the government is lying. There is no support here, no government has arrived.”", lugar: "Alcozacán · Witness · May 11, 2026" },
-                { text: "“Mother's Day has nothing to celebrate. We, the Nahua indigenous women of Tula, had to spend the night fleeing, carrying our children to escape the shooting and drone attacks.”", lugar: "Nahua Indigenous Women · CIPOG-EZ · May 10, 2026" },
-                { text: "“Listen to the attacks of Los Ardillos. They continue, and there is no federal government here, no state government. Displaced families had to take refuge in the hills, in the ravines, because they're no longer safe here.”", lugar: "Refugee · Alcozacán · May 11, 2026" },
-                { text: "“The army has cleared the way for these hitmen. Please report this, help us. My mother called me desperate. She says this morning they launched two drones trying to kill those who were taking refuge.”", lugar: "Relative of displaced person · Alcozacán" }
-            ],
-            fr: [
-                { text: "“Je suis une femme de Tula. Je suis partie à une heure de l'après-midi parce qu'ils tiraient sur nous avec des drones et des armes de calibre .50. J'ai pris mes deux enfants jumeaux comme j'ai pu. Ils avaient déjà détruit ma porte.”", lugar: "Tula · Mère · 10 mai 2026" },
-                { text: "“Il est 15h16, nous sommes ici à Alcozacán, où toute la communauté fuit. Pour qu'ils ne disent pas que le gouvernement ment. Il n'y a aucune aide ici, aucun gouvernement n'est arrivé.”", lugar: "Alcozacán · Témoin · 11 mai 2026" },
-                { text: "“Cette fête des mères, rien à célébrer. Nous, les femmes autochtones nahua de Tula, avons dû passer la nuit à fuir, portant nos enfants pour échapper aux tirs et aux attaques de drones.”", lugar: "Femmes autochtones nahua · CIPOG-EZ · 10 mai 2026" },
-                { text: "“Écoutez les attaques de Los Ardillos. Ils continuent, et il n'y a pas de gouvernement fédéral ici, pas de gouvernement d'État. Les familles déplacées ont dû se réfugier dans les collines, dans les ravins, car elles ne sont plus en sécurité ici.”", lugar: "Réfugié · Alcozacán · 11 mai 2026" },
-                { text: "“L'armée a ouvert la voie à ces tueurs. S'il vous plaît, dénoncez, aidez-nous. Ma mère m'a appelée désespérée. Elle dit que ce matin, ils ont lancé deux drones essayant de tuer ceux qui se réfugiaient.”", lugar: "Famille déplacée · Alcozacán" }
-            ]
-        };
-        const container = document.getElementById('testimonialsContainer');
-        if (container) container.innerHTML = testimonials[lang].map(t => `<div class="testimonial-card"><div class="testimonial-text">${t.text}</div><div class="testimonial-meta">📍 ${t.lugar}</div></div>`).join('');
+function updateChartLabel(lang) {
+    if (chart) {
+        chart.data.datasets[0].label = lang === 'es' ? 'Familias desplazadas (acumulado)' : (lang === 'en' ? 'Displaced families (cumulative)' : 'Familles déplacées (cumul)');
+        chart.update();
     }
+}
 
-    function renderStats() {
-        const stats = [
-            { num: "800+", labelEs: "familias desplazadas", labelEn: "displaced families", labelFr: "familles déplacées" },
-            { num: "76", labelEs: "integrantes asesinados (CIPOG-EZ)", labelEn: "members assassinated (CIPOG-EZ)", labelFr: "membres assassinés (CIPOG-EZ)" },
-            { num: "25", labelEs: "desaparecidos", labelEn: "missing", labelFr: "disparus" },
-            { num: "15", labelEs: "privados de libertad en Chicotlán", labelEn: "deprived of liberty in Chicotlán", labelFr: "privés de liberté à Chicotlán" }
+let map;
+function initMap() {
+    if (document.getElementById('map') && typeof L !== 'undefined') {
+        map = L.map('map').setView([17.55, -99.8], 9);
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        }).addTo(map);
+        const puntos = [
+            { name: "Alcozacán", coords: [17.38, -98.98], desc: "Ataque con drones · 11 mayo" },
+            { name: "Tula", coords: [17.56, -99.12], desc: "Incendios · huida masiva" },
+            { name: "Chicotlán", coords: [17.59, -99.12], desc: "15 privados de libertad" }
         ];
-        const container = document.getElementById('statsGrid');
-        if (container) container.innerHTML = stats.map(s => `<div class="stat-card"><div class="stat-number">${s.num}</div><div>${currentLang === 'es' ? s.labelEs : (currentLang === 'en' ? s.labelEn : s.labelFr)}</div></div>`).join('');
+        puntos.forEach(p => L.marker(p.coords).bindPopup(`<b>${p.name}</b><br>${p.desc}`).addTo(map));
     }
+}
 
-    function renderCronologia(lang) {
-        const lista = {
-            es: [
-                "<strong>8 mayo:</strong> Primeros ataques con drones y armas de alto poder en Tula y Acahuehuetlán. Familias comienzan a huir al monte.",
-                "<strong>9 mayo:</strong> Incendio de viviendas en Tula y Chicotlán. Desplazamiento masivo hacia Alcozacán.",
-                "<strong>10 mayo (noche):</strong> Grupo armado priva de la libertad a 15 personas en Chicotlán. Mujeres indígenas pasan el Día de las Madres huyendo.",
-                "<strong>11 mayo (3:30 AM):</strong> Cuatro cuerpos abandonados sobre carretera Chilapa-Tlapa, en Papáxla.",
-                "<strong>11 mayo (3:16 PM):</strong> Ataque con drones explosivos contra Alcozacán. Comunidad entera huye de nuevo. El ejército sigue sin intervenir."
-            ],
-            en: [
-                "<strong>May 8:</strong> First drone attacks and high-caliber weapons in Tula and Acahuehuetlán. Families begin fleeing to the mountains.",
-                "<strong>May 9:</strong> House fires in Tula and Chicotlán. Mass displacement toward Alcozacán.",
-                "<strong>May 10 (night):</strong> Armed group deprives 15 people of liberty in Chicotlán. Indigenous women spend Mother's Day fleeing.",
-                "<strong>May 11 (3:30 AM):</strong> Four bodies abandoned on Chilapa-Tlapa highway in Papáxla.",
-                "<strong>May 11 (3:16 PM):</strong> Explosive drone attack on Alcozacán. Entire community flees again. The army still does not intervene."
-            ],
-            fr: [
-                "<strong>8 mai :</strong> Premières attaques par drones et armes lourdes à Tula et Acahuehuetlán. Les familles commencent à fuir dans la montagne.",
-                "<strong>9 mai :</strong> Incendies de maisons à Tula et Chicotlán. Déplacement massif vers Alcozacán.",
-                "<strong>10 mai (nuit) :</strong> Groupe armé prive 15 personnes de liberté à Chicotlán. Les femmes autochtones passent la fête des mères à fuir.",
-                "<strong>11 mai (3h30) :</strong> Quatre corps abandonnés sur la route Chilapa-Tlapa, à Papáxla.",
-                "<strong>11 mai (15h16) :</strong> Attaque par drone explosif contre Alcozacán. Toute la communauté fuit à nouveau. L'armée n'intervient toujours pas."
-            ]
-        };
-        const container = document.getElementById('cronologiaList');
-        if (container) container.innerHTML = `<ul style="list-style-type: none;">${lista[lang].map(item => `<li style="margin-bottom: 20px; padding-left: 30px; border-left: 4px solid #8B0000;">${item}</li>`).join('')}</ul>`;
-    }
+// Botones de acción
+document.getElementById('copyEmailsBtn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText("cidh-prensa@oas.org, ohchr-infodesk@un.org, mexico@hrw.org, info@amnesty.org");
+    alert(currentLang === 'es' ? 'Correos copiados 📧' : (currentLang === 'en' ? 'Emails copied' : 'Emails copiés'));
+});
+document.getElementById('copyMxEmailsBtn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText("presidencia@cndh.org.mx, atencionciudadana@segob.gob.mx");
+    alert(currentLang === 'es' ? 'Correos México copiados' : (currentLang === 'en' ? 'Mexico emails copied' : 'Emails Mexique copiés'));
+});
+document.getElementById('shareWhatsAppBtn')?.addEventListener('click', () => {
+    const msg = encodeURIComponent(currentLang === 'es' ? "🚨 CRISIS EN GUERRERO: +800 familias desplazadas por drones. Exigimos justicia. #GuerreroResiste" : (currentLang === 'en' ? "🚨 CRISIS IN GUERRERO: +800 families displaced by drones. We demand justice. #GuerreroResists" : "🚨 CRISE AU GUERRERO : +800 familles déplacées par drones. Nous exigeons justice. #GuerreroRésiste"));
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
+});
+document.getElementById('shareTwitterBtn')?.addEventListener('click', () => {
+    const text = encodeURIComponent("🚨 Más de 800 familias desplazadas por ataques con drones en #Guerrero. Exigimos justicia. #GuerreroResiste");
+    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+});
+document.getElementById('emergencyBtn')?.addEventListener('click', () => document.getElementById('acciones')?.scrollIntoView({ behavior: 'smooth' }));
 
-    let map, chart;
-    function initMap() {
-        if (document.getElementById('mapContainer') && typeof L !== 'undefined') {
-            map = L.map('mapContainer').setView([17.55, -99.0], 9);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>' }).addTo(map);
-            const communities = [
-                { name: "Alcozacán", coords: [17.38, -98.98], desc: "Ataque con drones 11 may, desplazamiento masivo" },
-                { name: "Tula", coords: [17.56, -99.12], desc: "Incendios, ataques con .50, madres huyen" },
-                { name: "Xicotlán", coords: [17.59, -99.12], desc: "Privación de libertad de 15 personas" },
-                { name: "Acahuehuetlán", coords: [17.42, -98.90], desc: "Drones explosivos, familias al monte" }
-            ];
-            communities.forEach(c => L.marker(c.coords).bindPopup(`<b>${c.name}</b><br>${c.desc}`).addTo(map));
-        }
-    }
+// Eventos idioma
+document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang'))));
 
-    function initChart() {
-        const ctx = document.getElementById('displacementChart')?.getContext('2d');
-        if (ctx) {
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['8 mayo', '9 mayo', '10 mayo', '11 mayo', '12 mayo'],
-                    datasets: [{ label: currentLang === 'es' ? 'Familias desplazadas' : (currentLang === 'en' ? 'Displaced families' : 'Familles déplacées'), data: [50, 180, 420, 810, 920], borderColor: '#8B0000', backgroundColor: 'rgba(139,0,0,0.1)', fill: true, tension: 0.3, pointBackgroundColor: '#8B0000', pointRadius: 5 }]
-                },
-                options: { responsive: true, maintainAspectRatio: true }
-            });
-        }
-    }
-
-    function updateChartLabel(lang) {
-        if (chart) chart.data.datasets[0].label = lang === 'es' ? 'Familias desplazadas (acumulado)' : (lang === 'en' ? 'Displaced families (cumulative)' : 'Familles déplacées (cumul)');
-        if (chart) chart.update();
-    }
-
-    // BOTONES DE ACCIÓN (contraste mejorado)
-    document.getElementById('copyEmailsBtn')?.addEventListener('click', () => {
-        navigator.clipboard.writeText("cidh-prensa@oas.org, ohchr-infodesk@un.org, mexico@hrw.org, info@amnesty.org");
-        alert(currentLang === 'es' ? 'Correos copiados 📧' : (currentLang === 'en' ? 'Emails copied' : 'Emails copiés'));
-    });
-    document.getElementById('shareWhatsAppBtn')?.addEventListener('click', () => {
-        const msg = encodeURIComponent(currentLang === 'es' ? "🚨 CRISIS EN GUERRERO: +800 familias desplazadas por ataques con drones. Difunde. #GuerreroResiste" : (currentLang === 'en' ? "🚨 CRISIS IN GUERRERO: +800 families displaced by drone attacks. Share. #GuerreroResists" : "🚨 CRISE AU GUERRERO : +800 familles déplacées par drones. Partagez. #GuerreroRésiste"));
-        window.open(`https://wa.me/?text=${msg}`, '_blank');
-    });
-    document.getElementById('shareTwitterBtn')?.addEventListener('click', () => {
-        const text = encodeURIComponent("🚨 Más de 800 familias desplazadas por ataques con drones en #Guerrero. Exigimos justicia. #GuerreroResiste");
-        window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
-    });
-    document.getElementById('emergencyBtn')?.addEventListener('click', () => document.getElementById('acciones')?.scrollIntoView({ behavior: 'smooth' }));
-
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang'))));
-
-    // INICIALIZACIÓN
-    window.addEventListener('DOMContentLoaded', () => {
-        setLanguage(currentLang);
-        renderStats();
-        renderCronologia(currentLang);
-        setTimeout(() => { initMap(); initChart(); }, 200);
-    });
+// Inicialización
+window.addEventListener('DOMContentLoaded', () => {
+    setLanguage(currentLang);
+    renderStats();
+    renderDemands(currentLang);
+    initChart();
+    initMap();
+});
 </script>
 </body>
 </html>
